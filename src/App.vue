@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="bg-red-400 p-10">
     {{ userStore.user }}
   </div>
 </template>
