@@ -1,51 +1,51 @@
 // commitlint.config.js
 // emojis like "✅ ", "😂 ", ...
-const matchAnyEmojiWithSpaceAfter =
-  /(\p{Emoji_Presentation}|\p{Extended_Pictographic})?\s?/;
-const matchOptionalTicketNumberWithSpaceAfter = /(?:\[(T-\d+)\]\s)?/; // "[T-4605] ", "[T-1]"
-const subjectThatDontStartWithBracket = /([^\[].+)/; // "Add tests" but don't allow "[ Add tests"
+const matchAnyEmojiWithSpaceAfter
+  = /(\p{Emoji_Presentation}|\p{Extended_Pictographic})?\s?/
+const matchOptionalTicketNumberWithSpaceAfter = /(?:\[(T-\d+)\]\s)?/ // "[T-4605] ", "[T-1]"
+const subjectThatDontStartWithBracket = /([^\[].+)/ // "Add tests" but don't allow "[ Add tests"
 
 module.exports = {
   parserPreset: {
     parserOpts: {
       headerPattern: new RegExp(
-        '^' +
-        matchAnyEmojiWithSpaceAfter.source +
-        matchOptionalTicketNumberWithSpaceAfter.source +
-        subjectThatDontStartWithBracket.source +
-        '$'
+        `^${
+        matchAnyEmojiWithSpaceAfter.source
+        }${matchOptionalTicketNumberWithSpaceAfter.source
+        }${subjectThatDontStartWithBracket.source
+        }$`,
       ),
-      headerCorrespondence: ['emoji', 'ticket', 'subject']
-    }
+      headerCorrespondence: ['emoji', 'ticket', 'subject'],
+    },
   },
   plugins: [
     {
       rules: {
-        'header-match-team-pattern': parsed => {
-          const { emoji, ticket, subject } = parsed;
+        'header-match-team-pattern': (parsed) => {
+          const { emoji, ticket, subject } = parsed
           if (emoji === null && ticket === null && subject === null) {
             return [
               false,
-              "header must be in format '✅ [T-4605] Add tests' or '✅ Add tests'"
-            ];
+              'header must be in format \'✅ [T-4605] Add tests\' or \'✅ Add tests\'',
+            ]
           }
-          return [true, ''];
+          return [true, '']
         },
         'explained-emoji-enum': (parsed, _when, emojisObject) => {
-          const { emoji } = parsed;
+          const { emoji } = parsed
           if (emoji && !Object.keys(emojisObject).includes(emoji)) {
             return [
               false,
               `emoji must be one of:
 ${Object.keys(emojisObject)
                 .map(emojiType => `${emojiType} - ${emojisObject[emojiType]}`)
-                .join('\n')}`
-            ];
+                .join('\n')}`,
+            ]
           }
-          return [true, ''];
-        }
-      }
-    }
+          return [true, '']
+        },
+      },
+    },
   ],
   rules: {
     'header-match-team-pattern': [2, 'always'],
@@ -66,7 +66,6 @@ ${Object.keys(emojisObject)
         '🔒️': 'Fix security issues.',
         '🔐': 'Add or update secrets.',
         '🔖': 'Add or update secrets.',
-        '🔐': 'Release / Version tags.',
         '🚨': 'Fix compiler / linter warnings.',
         '🚧': 'Work in progress.',
         '💚': 'Fix CI Build.',
@@ -125,8 +124,8 @@ ${Object.keys(emojisObject)
         '🧑‍💻': 'Improve developer experience.',
         '💸': 'Add sponsorships or money related infrastructure.',
         '🧵': 'Add or update code related to multithreading or concurrency.',
-        '🦺': 'Add or update code related to validation.'
-      }
-    ]
-  }
-};
+        '🦺': 'Add or update code related to validation.',
+      },
+    ],
+  },
+}
