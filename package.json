@@ -13,6 +13,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "pinia": "^2.0.33",
     "vue": "^3.2.47"
   },
   "devDependencies": {
