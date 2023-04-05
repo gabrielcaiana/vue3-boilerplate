@@ -6,13 +6,15 @@ import { useUserStore } from '~/stores/user';
 const userStore = useUserStore()
 
 onMounted(() => {
-  userStore.setNewUser('Gabriel Caiana')
+  userStore.setNewUser('User')
 })
 </script>
 
 <template>
-  <div class="bg-red-400 p-10">
+  <div>
     {{ userStore.user }}
+
+    <HelloWorld />
   </div>
 </template>
 
